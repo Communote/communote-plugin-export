@@ -7,8 +7,8 @@ Additionally the bookmarked notes of users are also exported.
 # Compatibility
 The plugin can be used with a Communote standalone installation and the Communote SaaS platform.
 
-The following table shows which Communote server versions are supported by a specific version of the plugin. A server version which is not 
-listed cannot be uses with the plugin.
+The following table shows which Communote server versions are supported by a specific version of the plugin. A server version which 
+is not listed cannot be used with the plugin.
 
 | Plugin Version  | Supported Server Version |
 | ------------- | ------------- |
