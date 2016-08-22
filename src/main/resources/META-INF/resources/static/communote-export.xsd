@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="CommunoteExport" type="communoteExport"/>
+
+  <xs:complexType name="attachment">
+    <xs:sequence>
+      <xs:element name="displayName" type="xs:string"/>
+      <xs:element name="fileName" type="xs:string"/>
+      <xs:element name="mimeType" type="xs:string"/>
+      <xs:element name="size" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="communoteExport">
+    <xs:sequence>
+      <xs:element name="users" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="User" type="user" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="groups" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Group" type="group" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="groupMembers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="GroupMember" type="groupMember" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="topics" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Topic" type="topic" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="notes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Note" type="note" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="follows" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Follow" type="follow" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="user">
+    <xs:complexContent>
+      <xs:extension base="identifiableEntity">
+        <xs:sequence>
+          <xs:element name="alias" type="xs:string"/>
+          <xs:element name="email" type="xs:string"/>
+          <xs:element name="firstname" type="xs:string" minOccurs="0"/>
+          <xs:element name="language" type="xs:string" minOccurs="0"/>
+          <xs:element name="lastname" type="xs:string" minOccurs="0"/>
+          <xs:element name="ldapDN" type="xs:string" minOccurs="0"/>
+          <xs:element name="ldapExternalId" type="xs:string" minOccurs="0"/>
+          <xs:element name="status" type="status"/>
+          <xs:element name="tags" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Tag" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="identifiableEntity">
+    <xs:sequence/>
+    <xs:attribute name="id" type="xs:long" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="group">
+    <xs:complexContent>
+      <xs:extension base="identifiableEntity">
+        <xs:sequence>
+          <xs:element name="description" type="xs:string" minOccurs="0"/>
+          <xs:element name="groupName" type="xs:string"/>
+          <xs:element name="ldapExternalId" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="groupMember">
+    <xs:sequence/>
+    <xs:attribute name="entityId" type="xs:long" use="required"/>
+    <xs:attribute name="group" type="xs:boolean" use="required"/>
+    <xs:attribute name="groupId" type="xs:long" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="topic">
+    <xs:complexContent>
+      <xs:extension base="identifiableEntity">
+        <xs:sequence>
+          <xs:element name="alias" type="xs:string"/>
+          <xs:element name="allUsersRole" type="role"/>
+          <xs:element name="creationDate" type="xs:dateTime"/>
+          <xs:element name="description" type="xs:string" minOccurs="0"/>
+          <xs:element name="members" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="TopicMember" type="topicMember" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="tags" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Tag" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="title" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="topicMember">
+    <xs:sequence/>
+    <xs:attribute name="entityId" type="xs:long" use="required"/>
+    <xs:attribute name="group" type="xs:boolean" use="required"/>
+    <xs:attribute name="role" type="role" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="note">
+    <xs:complexContent>
+      <xs:extension base="identifiableEntity">
+        <xs:sequence>
+          <xs:element name="attachments" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Attachment" type="attachment" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="bookmarks" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="BookmarkingUser" type="identifiableEntity" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="content" type="xs:string" minOccurs="0"/>
+          <xs:element name="creationDate" type="xs:dateTime"/>
+          <xs:element name="likes" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Like" type="like" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="mentions" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="MentionedUser" type="identifiableEntity" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="modificationDate" type="xs:dateTime"/>
+          <xs:element name="tags" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Tag" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="activity" type="xs:boolean" use="required"/>
+        <xs:attribute name="authorId" type="xs:long" use="required"/>
+        <xs:attribute name="directMessage" type="xs:boolean" use="required"/>
+        <xs:attribute name="discussionId" type="xs:long" use="required"/>
+        <xs:attribute name="parentNoteId" type="xs:long"/>
+        <xs:attribute name="repostNoteId" type="xs:long"/>
+        <xs:attribute name="topicId" type="xs:long" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="like">
+    <xs:sequence/>
+    <xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+    <xs:attribute name="userId" type="xs:long" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="follow">
+    <xs:sequence>
+      <xs:element name="followedTags" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Tag" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="followedTopics" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Topic" type="identifiableEntity" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="followedUsers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="User" type="identifiableEntity" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="userId" type="xs:long" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ACTIVE"/>
+      <xs:enumeration value="DELETED"/>
+      <xs:enumeration value="DISABLED"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="role">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="READ"/>
+      <xs:enumeration value="WRITE"/>
+      <xs:enumeration value="MANAGE"/>
+      <xs:enumeration value="NONE"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

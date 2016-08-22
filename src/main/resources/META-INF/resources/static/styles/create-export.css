@@ -1,0 +1,9 @@
+.export-download a {
+	box-sizing: border-box;
+}
+.export-status-icon {
+	margin-right: 5px;
+}
+ .export-status-icon img {
+    vertical-align: top;
+ }

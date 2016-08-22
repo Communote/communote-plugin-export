@@ -1,0 +1,42 @@
+#cnRenderMessages()
+<div class="fieldset-description">$fmtTool.message('plugins.export.description')</div>
+<div class="spacer">&nbsp;</div>
+<div class="export-status">
+#if(${isPlanned})
+<span class="export-status-icon"><img src="$urlTool.renderStatic('/themes/core/images/misc/icon16_info.png')" /></span><span class="export-status-message">$fmtTool.message('plugins.export.status.planned')</span>
+#elseif(${isRunning})
+<span class="export-status-icon"><img src="$urlTool.renderStatic('/themes/core/images/misc/icon16_info.png')" /></span><span class="export-status-message">$fmtTool.message('plugins.export.status.running')</span>
+#elseif(${isCompleted})
+<span class="export-status-icon"><img src="$urlTool.renderStatic('/themes/core/images/misc/icon16_accept.png')" /></span><span class="export-status-message">$fmtTool.message('plugins.export.status.completed')</span>
+#elseif(${isFailed})
+<span class="export-status-icon"><img src="$urlTool.renderStatic('/themes/core/images/misc/icon16_warning.png')" /></span><span class="export-status-message">
+#if(${communoteTool.isStandalone()})
+$fmtTool.message('plugins.export.status.failed.standalone')
+#else
+$fmtTool.message('plugins.export.status.failed.saas')
+#end
+</span>
+#end
+</div>
+<form method="post">
+    <div class="actionbar actionbar-general">
+        <input type="hidden" value="plan" name="action" />
+        <div class="button-gray main">
+    #if(${isCompleted} || ${isFailed})
+            <input type="submit" value="$fmtTool.message('plugins.export.button.replanExport')" />
+    #elseif(!${isPlanned}&&!${isRunning})
+            <input type="submit" value="$fmtTool.message('plugins.export.button.planExport')" />
+    #end
+        </div>
+    #if(${isCompleted})
+        <div class="button-gray export-download">
+            <a href="$urlTool.render('/admin/export/download')" target="_blank">$fmtTool.message('plugins.export.button.downloadExport')</a>
+        </div>
+    #elseif(${isPlanned}||${isRunning})
+        <div class="button-gray export-download">
+            <a href="$urlTool.render('/admin/export/manage')">$fmtTool.message('plugins.export.button.refresh')</a>
+        </div>
+    #end
+        <span class="clear"><!-- Empty --></span>
+    </div>
+</form>
