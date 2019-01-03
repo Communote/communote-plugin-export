@@ -12,7 +12,7 @@ is not listed cannot be used with the plugin.
 
 | Plugin Version  | Supported Server Version |
 | ------------- | ------------- |
-| 1.2  | 3.4.x  |
+| 1.2  | 3.4.x, 3.5.x  |
 
 # Installation
 To install the plugin get a release from the [Releases](https://github.com/Communote/communote-plugin-export/releases) section and deploy it to 
